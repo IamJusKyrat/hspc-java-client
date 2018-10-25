@@ -17,6 +17,10 @@ public class HSPCClientOperationsFactory {
 	private HSPCClientOperationsSession sessions;
 
 	private PatientOperations patientResourceOperations;
+	
+	private PractitionerOperations practitionerOperations;
+	
+	private OrdersOperations ordersOperations;
 
 	public HSPCClientOperationsFactory(FHIRResourceSeverEndpointConfiguration... fhirEndpointConfigurations) {
 		new HSPCClientOperationsFactory(new HashMap<>(), fhirEndpointConfigurations);
@@ -60,4 +64,19 @@ public class HSPCClientOperationsFactory {
 		return patientResourceOperations;
 	}
 
+	public PractitionerOperations getPractitionerOperations() {
+
+		if (NullChecker.isNullish(practitionerOperations))
+			this.practitionerOperations = new PractitionerOperations(this.sessions);
+
+		return practitionerOperations;
+	}
+	
+	public OrdersOperations getOrdersOperations() {
+
+		if (NullChecker.isNullish(ordersOperations))
+			this.ordersOperations = new OrdersOperations(this.sessions);
+
+		return ordersOperations;
+	}
 }
